@@ -13,8 +13,145 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100%;
             margin: 0;
+            position: relative;
+            overflow: auto; /* Allow scrolling */
+        }
+
+        /* Floating Clouds */
+        .cloud {
+            position: absolute;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
+            border-radius: 50%;
+            animation: float 30s linear infinite;
+            opacity: 0.9;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .cloud:nth-child(1) {
+            width: 220px;
+            height: 120px;
+            top: 10%;
+            left: -20%;
+            animation-duration: 50s;
+            animation-delay: -10s;
+        }
+
+        .cloud:nth-child(2) {
+            width: 250px;
+            height: 140px;
+            top: 25%;
+            left: -30%;
+            animation-duration: 60s;
+        }
+
+        .cloud:nth-child(3) {
+            width: 180px;
+            height: 100px;
+            bottom: 20%;
+            left: -10%;
+            animation-duration: 40s;
+            animation-delay: -20s;
+        }
+
+        /* Additional Cloud Layers */
+        .cloud:before, .cloud:after {
+            content: '';
+            position: absolute;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .cloud:before {
+            width: 60px;
+            height: 60px;
+            top: -30%;
+            left: 20%;
+        }
+
+        .cloud:after {
+            width: 70px;
+            height: 70px;
+            top: -25%;
+            right: 20%;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100vw); }
+        }
+
+        /* Sun Styling */
+        .sun {
+            position: absolute;
+            top: 10%;
+            right: 5%;
+            background-color: #cccccc; /* Moon color - a light gray */
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5); /* Softer glow for moon */
+            animation: blink 2s infinite; /* Keep the blinking effect */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row; /* Keep the row for eye orientation */
+}
+
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Eyes Styling */
+        .eye {
+            background-color: #ffffff; /* White part of the eye remains white */
+            border-radius: 50%;
+            width: 20px; /* Eye size */
+            height: 20px; /* Eye size */
+            position: relative;
+            margin: 0 5px; /* Space between the eyes */
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.pupil {
+    background-color: #000; /* Pupil color */
+    border-radius: 50%;
+    width: 10px; /* Pupil size */
+    height: 10px; /* Pupil size */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: blink-eye 2s infinite; /* Eye blinking animation */
+}
+
+        @keyframes blink-eye {
+            0%, 100% { width: 10px; height: 10px; }
+            50% { width: 5px; height: 5px; } /* Make the pupil smaller to simulate blinking */
+        }
+
+        /* Eyebrow Styling */
+        .eyebrow {
+            position: absolute;
+            width: 15px;
+            height: 5px;
+            background-color: #000; /* Eyebrow color */
+            border-radius: 5px;
+            top: -5px; /* Position above the eye */
+        }
+
+        .eyebrow.left {
+            left: 3px; /* Position for left eyebrow */
+            transform: rotate(-15deg);
+        }
+
+        .eyebrow.right {
+            right: 3px; /* Position for right eyebrow */
+            transform: rotate(15deg);
         }
 
         /* Container for Form */
@@ -27,6 +164,7 @@
             max-width: 600px;
             margin: 20px;
             text-align: center;
+            backdrop-filter: blur(8px);
         }
 
         /* Heading Styling */
@@ -34,12 +172,14 @@
             font-size: 28px;
             color: #00d1b2;
             margin-bottom: 10px;
+            animation: fadeIn 2s ease-in-out;
         }
 
         h2 {
             font-size: 22px;
             color: #00bcd4;
             margin-top: 0;
+            animation: fadeIn 3s ease-in-out;
         }
 
         /* Label Styling */
@@ -80,17 +220,12 @@
             font-size: 18px;
             cursor: pointer;
             transition: all 0.3s ease;
+            animation: fadeIn 4s ease-in-out;
         }
 
         .btn-primary:hover {
             background-color: #00bda9;
             transform: scale(1.02);
-        }
-
-        /* Margin Bottom */
-        .mb-3 {
-            margin-bottom: 20px;
-            text-align: left;
         }
 
         /* Result Styling */
@@ -99,10 +234,34 @@
             font-size: 20px;
             font-weight: bold;
             margin-top: 20px;
+            animation: fadeIn 5s ease-in-out;
+        }
+
+        /* Animation for Fade-in */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
+    <!-- Floating Clouds -->
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+
+    <!-- Animated Sun with Cartoonish Eyes -->
+    <div class="sun">
+        <div class="eye">
+            <div class="pupil"></div>
+            <div class="eyebrow left"></div>
+        </div>
+        <div class="eye">
+            <div class="pupil"></div>
+            <div class="eyebrow right"></div>
+        </div>
+    </div>
+
     <div class="login">
         <h1>Health Risk Prediction</h1>
         <form action="{{ url_for('predict_datapoint') }}" method="post">
